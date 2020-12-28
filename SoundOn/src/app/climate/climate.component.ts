@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ILocation } from '../ILocation';
 import { WeatherMapService } from '../weather-map.service';
 @Component({
   selector: 'app-climate',
@@ -8,35 +9,42 @@ import { WeatherMapService } from '../weather-map.service';
 export class ClimateComponent implements OnInit {
 
   public resp: Object = {}
-  public lat: number= 0
-  public lng: number= 0
-  public apiKey: string = '67d4ac0e95120bc42f358dbe5cce49e8';
-  public openWeatherUrl: string = 
-	'http://api.openweathermap.org/data/2.5/weather?lat='
-	+ this.lat + '&lon=' + this.lng +
-  '&appid=' + this.apiKey;
-  
-  public city: string=""
-  public temp: string=""
-  public wind: string=""
-  public weather: string=""
+  public lat: string = "0"
+  public lng: string = "0"
+  public apiKey: string = '6fc7fbfa50e84e79bdcf4f6b6f1f1527';
+  public fields: string = 'city,latitude,longitude';
+  public geoLocationUrl: string = 
+	'https://api.ipgeolocation.io/ipgeo?apiKey='
+  + this.apiKey + '&fields=' + this.fields;
+
+  public city: string= ""
+  public description: string= ""
+  public temp: number = 0
+  public tempF: number = 0
+  public tempC: number = 0
+  public wind: string= ""
+  public weather: string= ""
  
   constructor(private weatherMapService: WeatherMapService) {}
  
-  getLocation()
-  {
-    navigator.geolocation.getCurrentPosition(resp => {
-          this.lat = resp.coords.latitude;
-          this.lng = resp.coords.latitude;
-        },
-        err => {
-          console.log('error' + err.code);
-        },
-        {timeout:2000});
-    }
-  
-    ngOnInit(): void {
-      this.getLocation();
-      setTimeout(()=>{console.log(this.resp)}, 2000)
-      // setTimeout(()=>console.log(this.weatherMapService.openWeatherUrlCoord), 2000);
-}}
+  ngOnInit(): void {
+      this.weatherMapService.getLocation(this.geoLocationUrl)
+      .subscribe(data => {
+        console.log(data)
+        this.lat = data.latitude;
+        this.lng = data.longitude;
+      });
+      setTimeout(()=>{this.weatherMapService.getWeather(this.lat, this.lng)
+      .subscribe(response => {
+        console.log(response);
+        this.description = response.weather[0].description;
+    //   //   this.temp = 1.8*(response.data.main.temp-273) + 32;
+    //   //   this.tempF = (this.temp).toFixed(1);
+    //   //   this.tempC = ((response.data.main.temp)-273.15).toFixed(01);
+    //   //   this.wind = (response.data.wind.speed).toFixed(1) + " mph";
+    //   //   this.city = response.data.name;
+    
+      })
+    }, 1000);
+  }
+}
