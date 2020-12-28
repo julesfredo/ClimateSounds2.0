@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "SoundOn"
+  "defaultProject": "SoundOn",
+  "cli": {
+    "analytics": "e562fd2f-cd5a-452b-9f37-aa701c5db428"
+  }
 }
