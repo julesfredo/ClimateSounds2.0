@@ -20,8 +20,8 @@ export class ClimateComponent implements OnInit {
   public city: string= ""
   public description: string= ""
   public temp: number = 0
-  public tempF: number = 0
-  public tempC: number = 0
+  public tempF: string = ""
+  public tempC: string = ""
   public wind: string= ""
   public weather: string= ""
  
@@ -38,11 +38,11 @@ export class ClimateComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.description = response.weather[0].description;
-    //   //   this.temp = 1.8*(response.data.main.temp-273) + 32;
-    //   //   this.tempF = (this.temp).toFixed(1);
-    //   //   this.tempC = ((response.data.main.temp)-273.15).toFixed(01);
-    //   //   this.wind = (response.data.wind.speed).toFixed(1) + " mph";
-    //   //   this.city = response.data.name;
+        this.temp = 1.8*(response.main.temp-273) + 32;
+        this.tempF = (this.temp).toFixed(1);
+        this.tempC = ((response.main.temp)-273.15).toFixed(1);
+        this.wind = (response.wind.speed).toFixed(1) + " mph";
+        this.city = response.name;
     
       })
     }, 1000);
