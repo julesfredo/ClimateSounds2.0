@@ -9,7 +9,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener }
 
 
 export class AppComponent implements OnInit{
-  
+  num:number = 70;
   constructor() { }
   
   ngOnInit() {

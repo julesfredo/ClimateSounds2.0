@@ -25,7 +25,11 @@ export class ClimateComponent implements OnInit {
   public tempC: string = ""
   public wind: string= ""
   public weather: string= ""
+  
   public locale: string= ""
+  public far: string= "Fahrenheit"
+  public cel: string= "Celsius"
+
   constructor(private weatherMapService: WeatherMapService) {}
  
   ngOnInit(): void {

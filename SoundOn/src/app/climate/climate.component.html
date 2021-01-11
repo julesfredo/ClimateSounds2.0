@@ -20,10 +20,36 @@
     <!-- </div> -->
     <div class="row">
       <div class="col-lg-6">
-        <h3>{{ tempF }}</h3>
+        <div align="center" style="margin-top:10%;">
+            <circle-progress 
+            [title]="tempF"
+            [subtitle]="far"
+            [percent]="tempF"
+            [space]="-10"
+            [radius]="50"
+            [outerStrokeWidth]="10"
+            [innerStrokeWidth]="10"
+            [outerStrokeColor]="'#4882c2'"
+            [innerStrokeColor]="'#e7e8ea'"
+            [animation]="true"
+            [animationDuration]="1000"></circle-progress>
+        </div>         
       </div>
       <div class="col-lg-6">
-        <h3>{{ tempC }}</h3>
+        <div align="center" style="margin-top:10%;">
+            <circle-progress 
+            [title]="tempC"
+            [subtitle]="cel"
+            [percent]="tempF"
+            [space]="-10" 
+            [radius]="50" 
+            [outerStrokeWidth]="10"
+            [innerStrokeWidth]="10" 
+            [outerStrokeColor]="'#4882c2'" 
+            [innerStrokeColor]="'#e7e8ea'" 
+            [animation]="true"
+            [animationDuration]="1000"></circle-progress>
+          </div>
       </div>
     </div>
 </div>
