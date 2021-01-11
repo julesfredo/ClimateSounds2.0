@@ -12,6 +12,7 @@ export class WeatherMapService {
   
   weatherApiKey: string = '67d4ac0e95120bc42f358dbe5cce49e8';
   openWeatherUrl: string = 'http://api.openweathermap.org/data/2.5/weather?lat=';
+  openWeatherUrlLocale: string = 'http://api.openweathermap.org/data/2.5/weather?q=';
   lat: number = 0;
   lng: number = 0;
 
@@ -31,5 +32,9 @@ export class WeatherMapService {
     setCoord(lat:number, lng:number) {  
       this.coord1.next(lat);
       this.coord2.next(lng);
+    }
+    getWeatherByLocation(locale:string){
+      return this.http.get<OpenWeather>(this.openWeatherUrlLocale + locale + 
+      '&appid=' + this.weatherApiKey);
     }
 }

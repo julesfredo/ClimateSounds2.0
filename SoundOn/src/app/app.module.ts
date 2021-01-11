@@ -6,6 +6,7 @@ import { ClimateComponent } from './climate/climate.component';
 import { MapComponent } from './map/map.component';
 import { MusicComponent } from './music/music.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],

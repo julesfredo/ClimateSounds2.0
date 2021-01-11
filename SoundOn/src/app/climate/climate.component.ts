@@ -25,7 +25,7 @@ export class ClimateComponent implements OnInit {
   public tempC: string = ""
   public wind: string= ""
   public weather: string= ""
- 
+  public locale: string= ""
   constructor(private weatherMapService: WeatherMapService) {}
  
   ngOnInit(): void {
@@ -40,17 +40,26 @@ export class ClimateComponent implements OnInit {
       // this.coordinates.lat = this.lat;
       setTimeout(()=>{this.weatherMapService.getWeather(this.lat, this.lng)
       .subscribe(response => {
-        console.log(response);
         this.description = response.weather[0].description;
         this.temp = 1.8*(response.main.temp-273) + 32;
         this.tempF = (this.temp).toFixed(1);
         this.tempC = ((response.main.temp)-273.15).toFixed(1);
         this.wind = (response.wind.speed).toFixed(1) + " mph";
         this.city = response.name;
-    
       })
     }, 1000);
     setTimeout(() => this.changeCoords(), 1500);
+  }
+  onSubmit() {
+    this.weatherMapService.getWeatherByLocation(this.locale)
+    .subscribe(response => {
+      this.description = response.weather[0].description;
+      this.temp = 1.8*(response.main.temp-273) + 32;
+      this.tempF = (this.temp).toFixed(1);
+      this.tempC = ((response.main.temp)-273.15).toFixed(1);
+      this.wind = (response.wind.speed).toFixed(1) + " mph";
+      this.city = response.name;
+    })
   }
   @ViewChild('stickyMenu') menuElement: ElementRef;
 
@@ -64,7 +73,7 @@ export class ClimateComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
     handleScroll(){
       const windowScroll = window.pageYOffset;
-      if(windowScroll >= 100){
+      if(windowScroll >= 45){
         this.sticky = true;
       } else {
         this.sticky = false;

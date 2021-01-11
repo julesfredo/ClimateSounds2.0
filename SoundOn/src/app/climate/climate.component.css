@@ -8,10 +8,9 @@ div {
     z-index: 10;
     width: 100%;
   }
-  #searchbar {
-    padding: 3%;
-    text-align: center;
-}
+  
+  /* searchbar */
+  
 h3 {
     text-align: center;
 }
