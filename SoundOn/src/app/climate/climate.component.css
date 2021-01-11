@@ -1,4 +1,14 @@
-#searchbar {
+div {
+    text-align: center;
+  }
+  .sticky{
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    z-index: 10;
+    width: 100%;
+  }
+  #searchbar {
     padding: 3%;
     text-align: center;
 }
@@ -7,4 +17,7 @@ h3 {
 }
 input {
     width: 100%;
+}
+.height {
+    padding: 50px;
 }

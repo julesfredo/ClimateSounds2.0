@@ -1,8 +1,13 @@
 <div class="container-fluid">
-    <header class="top-center">ClimateSounds</header>
-    <div class="row" id="searchbar">
-        <input type="text"> 
-    </div>  
+    <div id="" class="tabs is-centered height is-fullwidth"
+    #stickyMenu
+    [class.sticky] = "sticky">
+    <h3>{{title}}</h3>
+    </div><!-- <form class="searchbar"> -->
+        <input type="text" 
+        class="form-control height input-lg w-75" 
+        placeholder="weather in your city"/>
+    <!-- </form> -->
     <!-- <div class="row" id="city"> -->
         <h3>{{ city }}</h3>
     <!-- </div> -->

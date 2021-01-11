@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ILocation } from '../ILocation';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WeatherMapService } from '../weather-map.service';
 @Component({
   selector: 'app-climate',
@@ -7,11 +6,12 @@ import { WeatherMapService } from '../weather-map.service';
   styleUrls: ['./climate.component.css']
 })
 export class ClimateComponent implements OnInit {
+  public title: string = 'ClimateSounds';
 
   public resp: Object = {}
-  public lat: string = "0"
-  public lng: string = "0"
-  public coordinates:string = "lat: " + this.lat + ", lng: " + this.lng;
+  public lat:number = 0;
+  public lng: number = 0;
+  public coordinates:google.maps.LatLng;
   public apiKey: string = '6fc7fbfa50e84e79bdcf4f6b6f1f1527';
   public fields: string = 'city,latitude,longitude';
   public geoLocationUrl: string = 
@@ -29,13 +29,15 @@ export class ClimateComponent implements OnInit {
   constructor(private weatherMapService: WeatherMapService) {}
  
   ngOnInit(): void {
-    this.weatherMapService.currentCoord.subscribe(coord => this.coordinates = coord);
+    this.weatherMapService.currentLat.subscribe(coord => this.lat = coord);
+    this.weatherMapService.currentLng.subscribe(coord => this.lng = coord);
     this.weatherMapService.getLocation(this.geoLocationUrl)
       .subscribe(data => {
-        console.log(data)
+        // console.log(data)
         this.lat = data.latitude;
         this.lng = data.longitude;
       });
+      // this.coordinates.lat = this.lat;
       setTimeout(()=>{this.weatherMapService.getWeather(this.lat, this.lng)
       .subscribe(response => {
         console.log(response);
@@ -50,12 +52,30 @@ export class ClimateComponent implements OnInit {
     }, 1000);
     setTimeout(() => this.changeCoords(), 1500);
   }
+  @ViewChild('stickyMenu') menuElement: ElementRef;
+
+  sticky: boolean = false;
+  elementPosition: any;
+
+  ngAfterViewInit(){
+    this.elementPosition = this.menuElement.nativeElement.offsetTop;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+    handleScroll(){
+      const windowScroll = window.pageYOffset;
+      if(windowScroll >= 100){
+        this.sticky = true;
+      } else {
+        this.sticky = false;
+      }
+    }
   ngOnDestroy() {
     // this.weatherMapService.getWeather.unsubscribe();
     // this.weatherMapService.setCoord.unsubscribe();
   }
   changeCoords() {
-    console.log("set: " + this.coordinates + "\n" + this.lat);
-    this.weatherMapService.setCoord(this.coordinates);
+    this.weatherMapService.setCoord(this.lat, this.lng);
+    console.log("set: " + this.lat);
   }
 }
