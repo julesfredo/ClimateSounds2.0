@@ -37,7 +37,6 @@ export class ClimateComponent implements OnInit {
     this.weatherMapService.currentLng.subscribe(coord => this.lng = coord);
     this.weatherMapService.getLocation(this.geoLocationUrl)
       .subscribe(data => {
-        // console.log(data)
         this.lat = data.latitude;
         this.lng = data.longitude;
       });
@@ -50,9 +49,11 @@ export class ClimateComponent implements OnInit {
         this.tempC = ((response.main.temp)-273.15).toFixed(1);
         this.wind = (response.wind.speed).toFixed(1) + " mph";
         this.city = response.name;
+        this.lat = response.coord.lat;
+        this.lng = response.coord.lon;
       })
     }, 1000);
-    setTimeout(() => this.changeCoords(), 1500);
+    setInterval(() => this.changeCoords(), 1500);
   }
   onSubmit() {
     this.weatherMapService.getWeatherByLocation(this.locale)
@@ -63,7 +64,9 @@ export class ClimateComponent implements OnInit {
       this.tempC = ((response.main.temp)-273.15).toFixed(1);
       this.wind = (response.wind.speed).toFixed(1) + " mph";
       this.city = response.name;
-    })
+      this.lat = response.coord.lat;
+      this.lng = response.coord.lon;
+    });
   }
   @ViewChild('stickyMenu') menuElement: ElementRef;
 
@@ -83,12 +86,7 @@ export class ClimateComponent implements OnInit {
         this.sticky = false;
       }
     }
-  ngOnDestroy() {
-    // this.weatherMapService.getWeather.unsubscribe();
-    // this.weatherMapService.setCoord.unsubscribe();
-  }
   changeCoords() {
     this.weatherMapService.setCoord(this.lat, this.lng);
-    console.log("set: " + this.lat);
   }
 }

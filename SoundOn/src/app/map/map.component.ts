@@ -24,21 +24,21 @@ export class MapComponent implements OnInit {
     let map2: google.maps.Map;
     let map3: google.maps.Map;
     
-    setTimeout(()=>loader.load().then(() => {
+    setInterval(()=>loader.load().then(() => {
     let coordinates: google.maps.LatLng = new google.maps.LatLng( this.lat, this.lng);;
     map1 = new google.maps.Map(document.getElementById("map1") as HTMLElement, {
       center: coordinates,
-      zoom: 8,
+      zoom: 10,
     });
     map2 = new google.maps.Map(document.getElementById("map2") as HTMLElement, {
       center: coordinates,
-      zoom: 12,
+      zoom: 14,
     });
     map3 = new google.maps.Map(document.getElementById("map3") as HTMLElement, {
       center: coordinates,
-      zoom: 10,
+      zoom: 12,
     });
-  }), 1500  )
+  }), 5000  )
     
   }
 }
