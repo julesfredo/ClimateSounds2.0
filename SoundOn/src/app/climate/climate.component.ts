@@ -67,6 +67,8 @@ export class ClimateComponent implements OnInit {
       this.lat = response.coord.lat;
       this.lng = response.coord.lon;
     });
+    this.changeCoords();
+    this.weatherMapService.sendSearch();
   }
   @ViewChild('stickyMenu') menuElement: ElementRef;
 

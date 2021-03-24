@@ -17,7 +17,10 @@ export class MapComponent implements OnInit {
     this.weatherMapService.currentLat.subscribe(coords => this.lat = coords);
     this.weatherMapService.currentLng.subscribe(coords => this.lng = coords);
   // As soon as can be read, load map with correct coordinates as soon
-    setTimeout(() => this.setMap(), 1400);
+    setTimeout(() => this.setMap(), 1500);
+    this.weatherMapService.getSearch().subscribe(() => {
+      setTimeout(() => this.setMap(), 1500);
+    });
   }
   
   

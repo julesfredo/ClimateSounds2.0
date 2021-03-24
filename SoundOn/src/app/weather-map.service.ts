@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ILocation } from './ILocation';
 import { OpenWeather } from './OpenWeather';
 
@@ -15,6 +15,7 @@ export class WeatherMapService {
   openWeatherUrlLocale: string = 'http://api.openweathermap.org/data/2.5/weather?q=';
   lat: number = 0;
   lng: number = 0;
+  private search = new Subject();
 
   private coord1 = new BehaviorSubject(this.lat) ;
   private coord2 = new BehaviorSubject(this.lng) ;
@@ -37,4 +38,14 @@ export class WeatherMapService {
       return this.http.get<OpenWeather>(this.openWeatherUrlLocale + locale + 
       '&appid=' + this.weatherApiKey);
     }
+    sendSearch() {
+      console.log("search sent");
+      this.search.next();
+    }
+    getSearch(): Observable<any> {
+      console.log("search recieved service");
+
+      return this.search.asObservable();
+    }
+
 }
