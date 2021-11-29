@@ -4,7 +4,7 @@
   </div>
   <div class="input-group">
     <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-      <input type="search" id="searchedCity"
+      <input type="search" id="city-searchbar"
       placeholder="What're you searching for?" 
       aria-describedby="button-addon1" 
       class="form-control border-0 bg-light"
@@ -53,5 +53,8 @@
         [animationDuration]="1000"></circle-progress>
       </div>
     </div>
+  </div>
+  <div>
+    <h3>{{ description }}</h3>
   </div>
 </div>
