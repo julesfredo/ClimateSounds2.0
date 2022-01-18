@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ILocation } from './ILocation';
 import { OpenWeather } from './OpenWeather';
-
+import { Music } from './OpenWeather';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,4 +48,7 @@ export class WeatherMapService {
       return this.search.asObservable();
     }
 
+    getMusic(url: string) {
+      return this.http.get<Music>(url);
+    }
 }

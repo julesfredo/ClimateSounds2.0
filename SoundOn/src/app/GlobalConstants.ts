@@ -1,4 +1,4 @@
 export class GlobalConstants {
-    public static latitude: string = '123';
-    public longitude: string = '';
+    public static iTunesUrl: string = ""
+    public static genre: number = 0
 }

@@ -39,3 +39,7 @@ export interface OpenWeather {
         deg: number
     }
 }
+
+export interface Music {
+    
+}
