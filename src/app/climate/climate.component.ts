@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { WeatherMapService } from '../weather-map.service';
 import { GlobalConstants } from '../GlobalConstants'
+import { BehaviorSubject } from 'rxjs';
+
 @Component({
   selector: 'app-climate',
   templateUrl: './climate.component.html',
@@ -19,8 +21,8 @@ export class ClimateComponent implements OnInit {
 	'https://api.ipgeolocation.io/ipgeo?apiKey='
   + this.apiKey + '&fields=' + this.fields;
 
-  public city: string= ""
-  public description: string= ""
+  public city: string = ""
+  public description: string = "";
   public temp: number = 0
   public tempF: string = ""
   public tempC: string = ""
@@ -53,7 +55,7 @@ export class ClimateComponent implements OnInit {
         this.lat = response.coord.lat;
         this.lng = response.coord.lon;
       })
-    }, 1000);
+    }, 1900);
     setInterval(() => this.changeCoords(), 1500);
   }
 
@@ -124,7 +126,7 @@ export class ClimateComponent implements OnInit {
       this.lng = response.coord.lon;
     });
     this.changeCoords();
-    this.setGenre(this.description);
+    console.log(this.description);
     this.weatherMapService.sendSearch();
   }
   @ViewChild('stickyMenu') menuElement: ElementRef;

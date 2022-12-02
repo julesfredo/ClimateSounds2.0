@@ -47,8 +47,4 @@ export class WeatherMapService {
 
       return this.search.asObservable();
     }
-
-    getMusic(url: string) {
-      return this.http.get<Music>(url);
-    }
 }

@@ -32,7 +32,7 @@ import { FormsModule } from '@angular/forms';
       "showUnits": false,
       "responsive": true})
   ],
-  providers: [],
+  providers: [ClimateComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
