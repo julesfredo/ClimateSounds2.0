@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalConstants } from '../GlobalConstants';
 import { WeatherMapService } from '../weather-map.service'
 import { ClimateComponent } from '../climate/climate.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-music',
@@ -10,18 +11,18 @@ import { ClimateComponent } from '../climate/climate.component';
 })
 export class MusicComponent implements OnInit {
   public description: string;
-  constructor(private weatherMapService: WeatherMapService, private climateComponent: ClimateComponent) { }
+  constructor(private weatherMapService: WeatherMapService, private climateComponent: ClimateComponent, private http: HttpClient) { }
 
   ngOnInit(): void {  }
 
   getMusic() {
-    console.log(this.climateComponent.locale)
+    console.log(GlobalConstants.desc);
     // this.weatherMapService.getWeatherByLocation(this.climateComponent.locale)
     // .subscribe(response => {
     //   this.description = response.weather[0].description;
     //   console.log(this.description);
     // })
-			switch(this.description) {
+			switch(GlobalConstants.desc) {
 				case 'overcast clouds':
 				GlobalConstants.genre = 1010;
 				break;
@@ -68,8 +69,11 @@ export class MusicComponent implements OnInit {
           GlobalConstants.genre = 1211;
 				break;
 			};
-      console.log(GlobalConstants.genre);
-      console.log(this.description);
-			GlobalConstants.iTunesUrl = 'https://itunes.apple.com/us/rss/topsongs/genre=' + GlobalConstants.genre + '/json';
-  }
+	  GlobalConstants.iTunesUrl = 'https://itunes.apple.com/us/rss/topsongs/genre=' + GlobalConstants.genre + '/json';
+	  return this.http.get(GlobalConstants.iTunesUrl).subscribe(response => {console.log(response)});
+	}
+      
+	  playMusic() {
+
+	  }
 }
